@@ -1,18 +1,18 @@
 /**
- * @file       BlynkSimpleEsp32.h
- * @author     Volodymyr Shymanskyy
+ * @file       BlynkSimpleWioTerminal.h
+ * @author     Anson He (Seeed Studio)
  * @license    This project is released under the MIT License (MIT)
- * @copyright  Copyright (c) 2015 Volodymyr Shymanskyy
- * @date       Oct 2016
+ * @copyright  Copyright (c) 2020 Anson He
+ * @date       Nov 2020
  * @brief
  *
  */
 
-#ifndef BlynkSimpleEsp32_h
-#define BlynkSimpleEsp32_h
+#ifndef BlynkSimpleWioTerminal_h
+#define BlynkSimpleWioTerminal_h
 
-#ifndef ESP32
-#error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.
+#ifndef SEEED_WIO_TERMINAL
+#error This code is intended to run on the Wio Terminal platform! Please check your Tools->Board setting.
 #endif
 
 #define BLYNK_SEND_ATOMIC
@@ -20,7 +20,8 @@
 #include <BlynkApiArduino.h>
 #include <Blynk/BlynkProtocol.h>
 #include <Adapters/BlynkArduinoClient.h>
-#include <WiFi.h>
+#include <rpcWiFi.h>
+
 
 class BlynkWifi
     : public BlynkProtocol<BlynkArduinoClient>
@@ -46,7 +47,6 @@ public:
         BLYNK_LOG1(BLYNK_F("Connected to WiFi"));
 
         IPAddress myip = WiFi.localIP();
-        (void)myip; // Eliminate warnings about unused myip
         BLYNK_LOG_IP("IP: ", myip);
     }
 

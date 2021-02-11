@@ -1,4 +1,7 @@
 /*************************************************************
+  Download latest Blynk library here:
+    https://github.com/blynkkk/blynk-library/releases/latest
+
   Blynk is a platform with iOS and Android apps to control
   Arduino, Raspberry Pi and the likes over the Internet.
   You can easily build graphic interfaces for all your
@@ -7,47 +10,51 @@
     Downloads, docs, tutorials: http://www.blynk.cc
     Sketch generator:           http://examples.blynk.cc
     Blynk community:            http://community.blynk.cc
-    Social networks:            http://www.fb.com/blynkapp
+    Follow us:                  http://www.fb.com/blynkapp
                                 http://twitter.com/blynk_app
 
   Blynk library is licensed under MIT license
   This example code is in public domain.
 
  *************************************************************
+  This example runs directly on Wio Terminal.
 
-  This example shows how to use Microduino/mCookie Bluetooth LE
-  to connect your project to Blynk.
+  Note: This requires Wio Terminal Wi-Fi support package:
+    https://wiki.seeedstudio.com/Wio-Terminal-Network-Overview/
 
-  NOTE: BLE support is in beta!
+  Please be sure to select the right Wio Terminal module
+  in the Tools -> Board menu!
 
+  Change WiFi ssid, pass, and Blynk auth token to run :)
+  Feel free to apply it to any other example. It's simple!
  *************************************************************/
 
-//#define BLYNK_USE_DIRECT_CONNECT
-
-// For CoreUSB, use Serial for debug output
+/* Comment this out to disable prints and save space */
 #define BLYNK_PRINT Serial
 
-#include <BlynkSimpleSerialBLE.h>
+
+#include <rpcWiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleWioTerminal.h>
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
 char auth[] = "YourAuthToken";
+
+// Your WiFi credentials.
+// Set password to "" for open networks.
+char ssid[] = "YourNetworkName";
+char pass[] = "YourPassword";
 
 void setup()
 {
   // Debug console
   Serial.begin(9600);
 
-  Serial.println("Waiting for connections...");
-
-  // Blynk will work through Serial1
-  // Do not read or write this serial manually in your sketch
-  Serial1.begin(9600);
-  Blynk.begin(Serial1, auth);
+  Blynk.begin(auth, ssid, pass);
 }
 
 void loop()
 {
   Blynk.run();
 }
-
